@@ -1,13 +1,11 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
-    mode: 'none',
+    mode: 'development',
     output: {
         filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, './dist')
@@ -53,11 +51,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new TerserPlugin(),
         new MiniCssExtractPlugin({
             filename: 'styles.[contenthash].css'
         }),
-        new OptimizeCssAssetsPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html'
