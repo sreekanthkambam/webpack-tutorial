@@ -43,6 +43,12 @@ module.exports = {
                     },
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    'html-loader'
+                ]
             }
         ]
     },
@@ -54,11 +60,7 @@ module.exports = {
         new OptimizeCssAssetsPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Webpack Tutorial',
-            meta: {
-                description: 'Discusses various concept of webpack. Entry, output, Loaders, Plugins etc',
-                author: 'Sreekanth'
-            }
+            template: './src/index.html'
         })
     ]
 };
