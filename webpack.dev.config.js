@@ -7,8 +7,14 @@ module.exports = {
     entry: './src/index.js',
     mode: 'development',
     output: {
-        filename: 'bundle.[contenthash].js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, './dist')
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: path.resolve(__dirname, './dist'),
+        index: 'index.html',
+        port: 9001
     },
     module: {
         rules: [
@@ -52,7 +58,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'styles.[contenthash].css'
+            filename: 'styles.css'
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
