@@ -5,10 +5,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        'add-image': './src/add-image.js',
+        'hello-world': './src/hello-world.js'
+    },
     mode: 'production',
     output: {
-        filename: 'bundle.[contenthash].js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, './dist')
     },
     module: {
@@ -53,12 +56,25 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'styles.[contenthash].css'
+            filename: '[name].[contenthash].css'
         }),
         new OptimizeCssAssetsPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            filename: 'hello-world.html',
+            chunks: ['hello-world'],
+            template: './src/template.html'
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'add-image.html',
+            chunks: ['add-image'],
+            template: './src/template.html'
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            minSize: 10
+        }
+    }
 };

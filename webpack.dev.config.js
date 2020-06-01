@@ -4,10 +4,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        'add-image': './src/add-image.js',
+        'hello-world': './src/hello-world.js'
+    },
     mode: 'development',
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, './dist')
     },
     devtool: 'inline-source-map',
@@ -58,11 +61,18 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'styles.css'
+            filename: '[name].css'
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            filename: 'hello-world.html',
+            chunks: ['hello-world'],
+            template: './src/template.html'
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'add-image.html',
+            chunks: ['add-image'],
+            template: './src/template.html'
         })
     ]
 };
